@@ -1,4 +1,3 @@
-<!-- todo_list/todo_app/templates/todo_app/todo_list.html -->
 {% extends "base.html" %}
 
 {% block content %}
@@ -14,9 +13,12 @@
                 <div>
                     <div
                         role="button"
-                        onclick="location.href='{% url "item-update" todo_list.id todo.id %}'">
-                        {{ todo.title }}
-                        (Due {{ todo.due_date | date:"l, F j" }})
+                        onclick="location.href='{% url 'item-update' todo_list.id todo.id %}'">
+                        <input type="checkbox" id="todo_{{ todo.id }}" name="completed_items" value="{{ todo.id }}" {% if todo.is_done %}checked{% endif %}>
+                        <label for="todo_{{ todo.id }}">
+                            {{ todo.title }}
+                            (Due {{ todo.due_date | date:"l, F j" }})
+                        </label>
                     </div>
                 </div>
             </li>
@@ -28,13 +30,11 @@
             <input
                 value="Add a new item"
                 type="button"
-                onclick="location.href='{% url "item-add" todo_list.id %}'" />
+                onclick="location.href='{% url 'item-add' todo_list.id %}'" />
             <input
                 value="Delete this list"
                 type="button"
-                onclick="location.href=
-                '{% url "list-delete" todo_list.id %}'" />
-
+                onclick="location.href='{% url 'list-delete' todo_list.id %}'" />
         </p>
     </div>
 </div>
